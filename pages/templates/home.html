@@ -1,0 +1,169 @@
+{% extends "base.html" %} {% load bootstrap4 %} {% bootstrap_css %} {% load
+static %} {% block content %} {% if user.is_authenticated %}
+<div class="container-fluid mt-5">
+  <div class="row align-items-center">
+    <div class="col-lg-6 p-5">
+      <p
+        class="display-4"
+        style="color: #22272c; font-weight: 600; font-size: 3rem"
+      >
+        Welcome to PeerRooms!
+      </p>
+      <br />
+      <p
+        class="lead"
+        style="font-weight: 400; color: #23313f; font-size: 1.4rem"
+      >
+        Your platform for seamless communication and collaboration.
+      </p>
+      <hr style="border-top: 2px solid #3498db; width: 50%" />
+      <ul
+        style="
+          list-style: none;
+          padding: 0;
+          color: #324254;
+          font-size: 1.2rem;
+          line-height: 2;
+        "
+      >
+        <li>
+          <strong>Collaborate Effectively:</strong> Boost your team's
+          productivity with efficient collaboration tools.
+        </li>
+        <li>
+          <strong>Host Webinars:</strong> Organize and conduct webinars with
+          ease, reaching audiences worldwide.
+        </li>
+        <li>
+          <strong>Expand Your Network:</strong> Connect and grow your social and
+          professional circles.
+        </li>
+      </ul>
+      <div style="margin-top: 30px">
+        <a
+          href="{% url 'videochat:lobby' %}"
+          class="btn btn-primary"
+          style="
+            background: linear-gradient(
+              to right,
+              #1d7cbb,
+              #0563a1
+            ); /* Lighter blue gradient from light sky blue to lighter cerulean */
+            border: none;
+            margin-right: 20px;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 40px;
+          "
+          >Group Video Chat</a
+        >
+        <a
+          href="{% url 'messaging:messenger' %}"
+          class="btn btn-outline-primary"
+          style="
+            border: #0563a1 3px solid;
+            color: #0563a1;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 40px;
+          "
+          >Chat Rooms</a
+        >
+      </div>
+    </div>
+    <div class="col-lg-6 p-0">
+      <img
+        src="https://i.ibb.co/GCgc2Pc/615eeb82a58e185e4522d92f-build-or-buy-video-solution.png"
+        class="img-fluid"
+        alt="Video Chatting"
+        style="height: auto; width: 100%"
+      />
+    </div>
+  </div>
+</div>
+{% else %}
+
+<div class="container-fluid mt-5">
+  <div class="row align-items-center">
+    <div class="col-lg-6 p-5">
+      <h1
+        class="display-4"
+        style="color: #2c3e50; font-weight: bold; font-size: 3rem"
+      >
+        Discover PeerRooms!
+      </h1>
+      <br />
+      <p
+        class="lead"
+        style="font-weight: 400; color: #34495e; font-size: 1.4rem"
+      >
+        Join today and start enjoying a seamless platform for video and text
+        communication.
+      </p>
+      <hr style="border-top: 2px solid #3498db; width: 50%" />
+      <ul
+        style="
+          list-style: none;
+          padding: 0;
+          color: #5d6d7e;
+          font-size: 1.2rem;
+          line-height: 2;
+        "
+      >
+        <li>
+          <strong>Collaborate Effectively:</strong> Boost your team's
+          productivity with efficient collaboration tools.
+        </li>
+        <li>
+          <strong>Host Webinars:</strong> Organize and conduct webinars with
+          ease, reaching audiences worldwide.
+        </li>
+        <li>
+          <strong>Expand Your Network:</strong> Connect and grow your social and
+          professional circles.
+        </li>
+      </ul>
+      <div style="margin-top: 30px">
+        <a
+          href="{% url 'users:signup' %}"
+          class="btn btn-primary"
+          style="
+            background: linear-gradient(
+              to right,
+              #1d7cbb,
+              #0563a1
+            ); /* Lighter blue gradient from light sky blue to lighter cerulean */
+            border: none;
+            margin-right: 20px;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 40px;
+          "
+          >Sign up</a
+        >
+        <a
+          href="{% url 'users:login' %}"
+          class="btn btn-outline-primary"
+          style="
+            border: #0563a1 1px solid;
+            color: #0563a1;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 40px;
+          "
+          >Log in</a
+        >
+      </div>
+    </div>
+    <div class="col-lg-6 p-0">
+      <img
+        src="https://i.ibb.co/GCgc2Pc/615eeb82a58e185e4522d92f-build-or-buy-video-solution.png"
+        class="img-fluid"
+        alt="Video Chatting"
+        style="height: auto; width: 100%"
+      />
+    </div>
+  </div>
+</div>
+
+{% endif %} {% endblock content %}

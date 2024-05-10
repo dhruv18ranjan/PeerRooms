@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<head>
+  <style>
+      body {
+        background-color: #f8f9fa;
+        font-family: 'Arial', sans-serif;
+    }
+    .card-deck {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+        padding: 50px;
+    }
+    .card {
+        width: 280px;
+        background-color: #ffffff;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .card-header {
+        padding: 12px;
+        font-size: 18px;
+        text-align: center;
+        color: rgb(101, 101, 101);
+    }
+    .card-body {
+        padding: 20px;
+        color: #333;
+        font-size: 16px;
+    }
+    .btn-info {
+        width: 100%;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 5px;
+        transition: background-color 0.2s;
+        cursor: pointer;
+        background: linear-gradient(to right, #57b4f2, #36a2eb);
+
+    }
+    .friends-header {
+        background: linear-gradient(135deg, #007bff, #0056b3);
+    }
+    .requests-header {
+        background: linear-gradient(135deg, #ffc107, #ffca2c);
+        color: #343a40;
+    }
+    .messages-header {
+        background: linear-gradient(135deg, #17a2b8, #148f77);
+    }
+    .video-chat-header {
+        background: linear-gradient(135deg, #6c757d, #5a6268);
+    }
+    .btn-primary {
+        background-color: #17a2b8;
+    }
+    .btn-danger {
+        background-color: #dc3545;
+    }
+    .btn-success {
+        background-color: #28a745;
+    }
+  </style>
+</head>
+
+<div class="card-deck justify-content-center mt-5">
+
+<div class="card text-black border-success mb-3 mx-auto" style="max-width: 18rem;">
+    <div class="card-header text-center">Friends List</div>
+    <div class="card-body">
+    {% for friend in friends %}
+      <h5 class="card-title text-center">{{ friend.username }}</h5>
+      <a href="{% url 'friend:profile_view' friend.pk %}">
+        <button type="button" class="btn btn-info btn-sm btn-block mb-2">
+        View Profile
+        </button>
+      </a>
+      <a href="{% url 'friend:delete-friend' friend.pk %}">
+        <button type="button" class="btn btn-info btn-sm btn-block mb-2">
+        Remove from Friends
+        </button>
+      </a>
+      <hr>
+    {% endfor %}
+    </div>
+  </div>
+
+  <div class="card text-black border-warning mb-3 mx-auto" style="max-width: 18rem;">
+    <div class="card-header text-center">Friend Requests</div>
+    <div class="card-body">
+        {% for request in rec_friend_requests %}
+      <h5 class="card-title text-center">From: {{ request.sender }}</h5>
+      <a href="{% url 'friend:accept-friend-request' request.pk %}">
+        <button type="button" class="btn btn-info btn-sm btn-block mb-2">
+        Accept Friend Request
+        </button>
+      </a>
+      <a href="{% url 'friend:decline-friend-request' request.pk %}">
+        <button type="button" class="btn btn-info btn-sm btn-block mb-2">
+        Decline Friend Request
+        </button>
+      </a>
+      <hr>
+      {% endfor %}
+      <div class="card-header text-center">Requests Sent</div>
+    <div class="card-body">
+        {% for sent in sent_friend_requests %}
+      <h5 class="card-title text-center">Send to: {{ sent.receiver }}</h5>
+      <a href="{% url 'friend:cancel-friend-request' sent.receiver.pk %}">
+        <button type="button" class="btn btn-info btn-sm btn-block mb-2">
+        Cancel Friend Request
+        </button>
+      </a>
+      {% endfor %}
+    
+    </div>
+  </div>
+  </div>
+
+  <div class="card text-black border-info mb-3 mx-auto" style="max-width: 18rem;">
+    <div class="card-header text-center">Direct Messages</div>
+    <div class="card-body">
+        <div class="card-header text-center">-Initiated-</div>
+        {% for ini in initiated_direct_chats %}
+      <h5 class="card-title text-center pt-2">Chatting with: {{ ini.user2 }}</h5>
+      <a href="{% url 'messaging:direct-chat' ini.user2.pk %}">
+        <button type="button" class="btn btn-info btn-sm btn-block mb-2">
+        Message {{ ini.user2 }}
+        </button>
+      </a>
+      <hr>
+      {% endfor %}
+      <div class="card-header text-center">-Received-</div>
+    <div class="card-body">
+        {% for rec in received_direct_chats %}
+      <h5 class="card-title text-center pt-2">Chatting with: {{ rec.user1 }}</h5>
+      <a href="{% url 'messaging:direct-chat' rec.user1.pk %}">
+        <button type="button" class="btn btn-info btn-sm btn-block mb-2">
+        Message {{ rec.user1 }}
+        </button>
+      </a>
+      {% endfor %}
+    
+    </div>
+  </div>
+  </div>
+
+  <div class="card text-black border-info mb-3 mx-auto" style="max-width: 18rem;">
+    <div class="card-header text-center">Video Chat Rooms</div>
+    <div class="card-body">
+        <div class="card-header text-center">-Initiated-</div>
+        {% for inivid in initiated_video_chats %}
+      <h5 class="card-title text-center pt-2">Video Chatting with: {{ inivid.videouser2 }}</h5>
+      <a href="{% url 'videochat:private-video-chat' inivid.videouser2.pk %}">
+        <button type="button" class="btn btn-info btn-sm btn-block mb-2">
+        Jump into Videochat Room
+        </button>
+      </a>
+      <hr>
+      {% endfor %}
+      <div class="card-header text-center">-Received-</div>
+    <div class="card-body">
+        {% for recvid in received_video_chats %}
+      <h5 class="card-title text-center pt-2">Video Chatting with: {{ recvid.videouser1 }}</h5>
+      <a href="{% url 'videochat:private-video-chat' recvid.videouser1.pk %}">
+        <button type="button" class="btn btn-info btn-sm btn-block mb-2">
+        Jump into Videochat Room
+        </button>
+      </a>
+      {% endfor %}
+    
+    </div>
+  </div>
+  </div>
+
+</div>
+{% endblock content %}

@@ -1,0 +1,23 @@
+.jumbotron {
+    background-color: #f8f9fa; /* Light grey background for slight contrast */
+    padding: 2rem; /* Uniform padding */
+    border-radius: 0.5rem; /* Rounded corners */
+}
+
+.list-group-item {
+    border: none; /* Remove borders for a cleaner look */
+    background-color: transparent; /* Transparent background for integration */
+}
+
+dt {
+    font-weight: bold; /* Bold font for definition titles */
+}
+
+dd {
+    margin-bottom: 0.5rem; /* Space below definitions for clarity */
+}
+
+.btn-primary {
+    background-color: #0056b3; /* Consistent blue primary color */
+    border: none; /* Remove border for cleaner buttons */
+}

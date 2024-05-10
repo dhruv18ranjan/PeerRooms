@@ -1,0 +1,194 @@
+{% extends "base.html" %} {% load crispy_forms_filters %} {% block content %}
+
+<head>
+  <style>
+    .card {
+      width: 32rem;
+      background-color: #ffffff;
+      margin-top: 40px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: auto;
+      padding: 20px;
+    }
+    .card-body {
+      padding: 20px;
+      text-align: center;
+    }
+    .card-title {
+      font-size: 28px;
+      color: #333;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .form-text {
+      color: #6c757d;
+      font-size: 14px;
+    }
+    .btn-info {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      width: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ced4da;
+      margin-top: 5px;
+      font-size: 16px;
+    }
+    input[type="file"] {
+      padding: 6px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    hr {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border: 0;
+      border-top: 1px solid #eee;
+    }
+    .text-muted{
+      display: none;
+    }
+
+
+  </style>
+</head>
+
+<div style="display: flex; flex-direction: column; justify-content: center; padding: 6rem;" >
+  <div style="display: flex; gap: 50px;"> 
+    <div
+      style="
+      flex: 1;
+        margin: auto;
+        margin-top: 100px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      "
+    >
+      <div style="text-align: center; margin-bottom: 20px">
+        <img
+          src="{{ user.profile.image.url }}"
+          alt="Profile Image"
+          style="
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 1px solid #acacac;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          "
+        />
+      </div>
+      <div style="margin-bottom: 10px">
+        <label style="font-size: 16px; color: #6c6c6c; font-weight: bold"
+          >Username:</label
+        >
+        <input
+          type="text"
+          value="{{ user.username }}"
+          style="
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #acacac;
+            margin-top: 5px;
+          "
+        />
+      </div>
+      <div style="margin-bottom: 10px">
+        <label style="font-size: 16px; color: #6c6c6c; font-weight: bold"
+          >E-mail:</label
+        >
+        <input
+          type="text"
+          value="{{ user.email }}"
+          style="
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #acacac;
+            margin-top: 5px;
+          "
+        />
+      </div>
+      <div style="margin-bottom: 20px">
+        <label style="font-size: 16px; color: #6c6c6c; font-weight: bold"
+          >Bio:</label
+        >
+        <textarea
+          style="
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #acacac;
+            margin-top: 5px;
+            height: 100px;
+          "
+        >
+{{ user.profile.bio }}</textarea
+        >
+      </div>
+    </div>
+
+    <div class="card mx-auto mt-4" style="width: 32rem ; 
+    flex: 1;">
+      <div class="card-body">
+        <h5 class="card-title">Edit Profile</h5>
+        <form id="profile-form" method="post" enctype="multipart/form-data">
+          {% if messages %} {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+          {% endfor %} {% endif %} {% csrf_token %}
+          <fieldset class="form-group">
+            {{ u_form|crispy }} {{ p_form|crispy }}
+          </fieldset>
+          <div class="form-group" style="display: block; text-align: center">
+            <button class="btn btn-info" type="submit" style="background: linear-gradient(
+              to right,
+              #57b4f2,
+              #36a2eb
+            );">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    
+  </div>
+  <div style="display: flex; justify-content: center; align-items: center; ">
+    <a href="{% url 'users:delete-owner' %}">
+      <button
+        type="button"
+        class="btn btn-danger btn-sm btn-info btn-block mb-2 mt-4"
+        style="width: 100%; background: linear-gradient(
+          to right,
+          #57b4f2,
+          #36a2eb
+        );"
+      >
+        Delete Account
+      </button>
+    </a>
+  </div>
+</div>
+{% endblock content %}

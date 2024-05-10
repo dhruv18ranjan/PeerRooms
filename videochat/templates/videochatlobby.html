@@ -1,0 +1,86 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<main
+  style="
+    display: flex;
+    align-items: start;
+    padding-top: 50px;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+  "
+>
+  <div
+    style="
+      width: 360px;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    "
+  >
+    <header
+      style="
+        background: linear-gradient(to right, #1d7cbb, #0563a1);
+        padding: 20px 30px;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+      "
+    >
+      <h1 style="font-size: 24px; color: white; margin: 0; text-align: center">
+        Video Chat Lobby
+      </h1>
+    </header>
+    <section style="padding: 30px; text-align: center">
+      <p style="font-size: 16px; margin: 0 0 20px">
+        Join a room by entering a name below.
+      </p>
+      <form id="form" action="#" method="POST">
+        <input
+          type="text"
+          name="room"
+          placeholder="Room name (characters only)"
+          style="
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            font-size: 16px;
+            margin-bottom: 20px;
+          "
+        />
+        <button
+          type="submit"
+          style="
+            width: 100%;
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+          "
+        >
+          Join Stream
+        </button>
+      </form>
+    </section>
+  </div>
+</main>
+
+<script>
+  document.getElementById("form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const room = e.target.room.value.toUpperCase();
+
+    const response = await fetch(`/get_token/?channel=${room}`);
+    const data = await response.json();
+
+    sessionStorage.setItem("UID", data.uid);
+    sessionStorage.setItem("token", data.token);
+    sessionStorage.setItem("room", room);
+
+    window.location.href = "/videochatroom/";
+  });
+</script>
+{% endblock content %}
